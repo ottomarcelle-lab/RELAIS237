@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidSupportTicket(data) {
+      return data.keys().hasAll(['fullName', 'phone', 'city', 'category', 'message', 'status', 'createdAt'])
+        && data.keys().hasOnly(['userId', 'fullName', 'phone', 'city', 'category', 'trackingCode', 'message', 'status', 'createdAt'])
+        && data.fullName is string && data.fullName.size() > 0 && data.fullName.size() <= 100
+        && data.phone is string && data.phone.size() >= 8 && data.phone.size() <= 30
+        && data.city in ['Douala', 'Yaoundé']
+        && data.category in ['tracking', 'payment_momo_om', 'kyc_cni', 'relay_point', 'other']
+        && data.message is string && data.message.size() > 0 && data.message.size() <= 1000
+        && data.status in ['open', 'in_progress', 'resolved']
+        && data.createdAt is timestamp;
+    }
+
+    // Support Tickets Collection
+    match /support_tickets/{ticketId} {
+      allow create: if isValidId(ticketId) && isValidSupportTicket(incoming()) && incoming().createdAt == request.time;
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || request.auth.token.email == "ottoviktoriaottootto@gmail.com");
+      allow update, delete: if false;
+    }
+  }
+}

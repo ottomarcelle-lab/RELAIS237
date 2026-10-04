@@ -1,0 +1,64 @@
+{
+  "entities": {
+    "SupportTicket": {
+      "title": "SupportTicket",
+      "description": "Demande d'assistance utilisateur ou litige de livraison pour Douala et Yaoundé",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Identifiant de l'utilisateur émetteur ou 'anonymous'"
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Nom complet de l'utilisateur",
+          "maxLength": 100
+        },
+        "phone": {
+          "type": "string",
+          "description": "Numéro de téléphone camerounais (+237...)",
+          "maxLength": 30
+        },
+        "city": {
+          "type": "string",
+          "enum": ["Douala", "Yaoundé"],
+          "description": "Ville de prise en charge ou livraison"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["tracking", "payment_momo_om", "kyc_cni", "relay_point", "other"],
+          "description": "Catégorie de la demande d'aide"
+        },
+        "trackingCode": {
+          "type": "string",
+          "description": "Code de suivi du colis concerné si applicable",
+          "maxLength": 40
+        },
+        "message": {
+          "type": "string",
+          "description": "Message ou description du problème",
+          "maxLength": 1000
+        },
+        "status": {
+          "type": "string",
+          "enum": ["open", "in_progress", "resolved"],
+          "description": "Statut de traitement du ticket"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Horodatage de création"
+        }
+      },
+      "required": ["fullName", "phone", "city", "category", "message", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/support_tickets/{ticketId}": {
+      "schema": {
+        "$ref": "#/entities/SupportTicket"
+      },
+      "description": "Collection des tickets d'assistance et réclamations du Centre d'Aide"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "/",
+  "name": "RELAIS237 - Livraison & Relais Colis Cameroun",
+  "short_name": "RELAIS237",
+  "description": "Application officielle de livraison express et relais colis sécurisée au Cameroun (Douala & Yaoundé).",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#042f2e",
+  "theme_color": "#059669",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

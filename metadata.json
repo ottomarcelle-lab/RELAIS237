@@ -1,0 +1,7 @@
+{
+  "name": "RELAIS237 - Architecture & App Livraison Cameroun",
+  "description": "Architecture logicielle, modèle de données et maquettes interactives UI pour RELAIS237, application de livraison et relais colis sécurisée au Cameroun (KYC CNI, MoMo/OM, WhatsApp OTP, Suivi GPS).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
